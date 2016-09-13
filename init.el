@@ -1,3 +1,6 @@
+(setq backup-inhibited t)
+(setq auto-save-default nil)
+
 (require 'package)
 
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
@@ -24,10 +27,12 @@ Return a list of installed packages or nil for every skipped package."
 
 (package-initialize)
 
-(ensure-package-installed 'evil)
+(ensure-package-installed 'evil 'use-package)
 
 (require 'evil)
 (evil-mode t)
 
-(setq backup-inhibited t)
-(setq auto-save-default nil)
+(require 'use-package)
+
+(use-package ensime
+  :pin melpa-stable)
