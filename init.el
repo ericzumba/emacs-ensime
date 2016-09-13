@@ -7,32 +7,26 @@
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
 
-(setq package-enable-at-startup nil)
-
-(defun ensure-package-installed (&rest packages)
-  "Assure every package is installed, ask for installation if it’s not.
-
-Return a list of installed packages or nil for every skipped package."
-  (mapcar
-   (lambda (package)
-     (if (package-installed-p package)
-         nil
-       (if (y-or-n-p (format "Package %s is missing. Install it? " package))
-           (package-install package)
-         package)))
-   packages))
-
-(or (file-exists-p package-user-dir)
-    (package-refresh-contents))
-
 (package-initialize)
 
-(ensure-package-installed 'evil 'use-package)
+(setq package-enable-at-startup nil)
+
+(defvar my-packages
+  '(evil
+    elscreen
+    evil-surround
+    ensime))
+
+(dolist (p my-packages)
+  (when (not (package-installed-p p))
+    (package-install p)))
 
 (require 'evil)
 (evil-mode t)
 
-(require 'use-package)
-
-(use-package ensime
-  :pin melpa-stable)
+(require 'ensime)
+(setq ensime-startup-snapshot-notification nil)
+(add-hook 'scala-mode-hook
+  (lambda ()
+    (setq ensime-use-helm t)
+    (ensime-mode)))
