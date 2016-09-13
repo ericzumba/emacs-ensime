@@ -15,7 +15,8 @@
   '(evil
     elscreen
     evil-surround
-    ensime))
+    ensime
+    projectile))
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
@@ -30,3 +31,19 @@
   (lambda ()
     (setq ensime-use-helm t)
     (ensime-mode)))
+
+(projectile-global-mode)
+;; (custom-set-variables
+;;  ;; custom-set-variables was added by Custom.
+;;  ;; If you edit it by hand, you could mess it up, so be careful.
+;;  ;; Your init file should contain only one such instance.
+;;  ;; If there is more than one, they won't work right.
+;;  '(package-selected-packages
+;;    (quote
+;;     (projectile use-package evil-surround evil-leader ensime elscreen async))))
+;; (custom-set-faces
+;;  ;; custom-set-faces was added by Custom.
+;;  ;; If you edit it by hand, you could mess it up, so be careful.
+;;  ;; Your init file should contain only one such instance.
+;;  ;; If there is more than one, they won't work right.
+;;  )
